@@ -3,6 +3,17 @@ import numpy as np
 import pandas as pd
 import visuals as vs  # Supplementary code
 from sklearn.cross_validation import ShuffleSplit
+from sklearn.metrics import r2_score
+from sklearn.cross_validation import train_test_split
+
+def performance_metric(y_true, y_predict):
+    """ Calculates and returns the performance score between
+        true and predicted values based on the metric chosen. """
+
+    score = r2_score(y_true, y_predict)
+
+    # Return the score
+    return score
 
 # Load the Boston housing dataset
 data = pd.read_csv('housing.csv')
@@ -35,3 +46,9 @@ print "Maximum price: ${:,.2f}".format(maximum_price)
 print "Mean price: ${:,.2f}".format(mean_price)
 print "Median price ${:,.2f}".format(median_price)
 print "Standard deviation of prices: ${:,.2f}".format(std_price)
+
+# Shuffle and split the data into training and testing subsets
+X_train, X_test, y_train, y_test = train_test_split(features, prices, test_size=0.2, random_state=9)
+
+# Success
+print "Training and testing split was successful."
